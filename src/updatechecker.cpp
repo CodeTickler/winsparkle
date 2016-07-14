@@ -1,7 +1,7 @@
 /*
- *  This file is part of WinSparkle (http://winsparkle.org)
+ *  This file is part of WinSparkle (https://winsparkle.org)
  *
- *  Copyright (C) 2009-2015 Vaclav Slavik
+ *  Copyright (C) 2009-2016 Vaclav Slavik
  *  Copyright (C) 2007 Andy Matuschak
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a
@@ -227,11 +227,16 @@ void UpdateChecker::Run()
         const std::string url = Settings::GetAppcastURL();
         if ( url.empty() )
             throw std::runtime_error("Appcast URL not specified.");
+        CheckForInsecureURL(url, "appcast feed");
 
         StringDownloadSink appcast_xml;
         DownloadFile(url, &appcast_xml, GetAppcastDownloadFlags());
 
         Appcast appcast = Appcast::Load(appcast_xml.data);
+        if (!appcast.ReleaseNotesURL.empty())
+            CheckForInsecureURL(appcast.ReleaseNotesURL, "release notes");
+        if (!appcast.DownloadURL.empty())
+            CheckForInsecureURL(appcast.DownloadURL, "update file");
 
         Settings::WriteConfigValue("LastCheckTime", time(NULL));
 

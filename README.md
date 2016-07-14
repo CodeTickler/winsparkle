@@ -9,7 +9,7 @@ applications. It is heavily inspired by the Sparkle framework for OS X
 written by Andy Matuschak and others, to the point of sharing the same 
 updates format (appcasts) and having very similar user interface.
 
-See http://winsparkle.org for more information about WinSparkle.
+See https://winsparkle.org for more information about WinSparkle.
 
 Documentation: [wiki](https://github.com/vslavik/winsparkle/wiki) and
 the [winsparkle.h header](https://github.com/vslavik/winsparkle/blob/master/include/winsparkle.h).
@@ -40,9 +40,11 @@ Check the sources out and initialize the submodules:
 To compile the library, just open `WinSparkle.sln` (or the one corresponding to
 your compiler version) solution and build it.
 
-At the moment, projects for Visual C++ 2008, 2010 and 2012 are provided, so
-you'll need that (Express edition suffices). In principle, there's nothing in
-the code preventing it from being compiled by other compilers.
+At the moment, projects for Visual C++ (2008 and up) are provided, so you'll
+need that (Express/Community edition suffices). In principle, there's nothing
+in the code preventing it from being compiled by other compilers.
+
+There are also unsupported CMake build files in the cmake directory.
 
 
  Where can I get some examples?
@@ -58,7 +60,7 @@ Download the sources archive and have a look at the
 If you want to stay at the bleeding edge and use the latest, not yet released,
 version of WinSparkle, you can get its sources from public repository.
 WinSparkle uses git and and the sources are hosted on GitHub at
-http://github.com/vslavik/winsparkle
+https://github.com/vslavik/winsparkle
 
 WinSparkle uses submodules for some dependencies, so you have to initialize
 them after checking the tree out:

@@ -1,7 +1,7 @@
 /*
- *  This file is part of WinSparkle (http://winsparkle.org)
+ *  This file is part of WinSparkle (https://winsparkle.org)
  *
- *  Copyright (C) 2009-2015 Vaclav Slavik
+ *  Copyright (C) 2009-2016 Vaclav Slavik
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a
  *  copy of this software and associated documentation files (the "Software"),
@@ -99,10 +99,10 @@ bool GetHttpHeader(HINTERNET handle, DWORD whatToGet, DWORD& output)
            ) == TRUE;
 }
 
-std::wstring GetURLFileName(const URL_COMPONENTSA& urlc)
+std::wstring GetURLFileName(const char *url)
 {
-    const char *lastSlash = strrchr(urlc.lpszUrlPath, '/');
-    const std::string fn(lastSlash ? lastSlash + 1 : urlc.lpszUrlPath);
+    const char *lastSlash = strrchr(url, '/');
+    const std::string fn(lastSlash ? lastSlash + 1 : url);
     return AnsiToWide(fn);
 }
 
@@ -206,7 +206,20 @@ void DownloadFile(const std::string& url, IDownloadSink *sink, int flags)
 
     if ( !filename_set )
     {
-        sink->SetFilename(GetURLFileName(urlc));
+        DWORD ousize = 0;
+        InternetQueryOptionA(conn, INTERNET_OPTION_URL, NULL, &ousize);
+        if (GetLastError() == ERROR_INSUFFICIENT_BUFFER)
+        {
+            DataBuffer<char> optionurl(ousize);
+            if ( InternetQueryOptionA(conn, INTERNET_OPTION_URL, optionurl, &ousize) )
+                sink->SetFilename(GetURLFileName(optionurl));
+            else
+                sink->SetFilename(GetURLFileName(urlc.lpszUrlPath));
+        }
+        else
+        {
+            sink->SetFilename(GetURLFileName(urlc.lpszUrlPath));
+        }
     }
 
     // Download the data:

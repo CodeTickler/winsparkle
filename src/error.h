@@ -1,7 +1,7 @@
 /*
- *  This file is part of WinSparkle (http://winsparkle.org)
+ *  This file is part of WinSparkle (https://winsparkle.org)
  *
- *  Copyright (C) 2009-2015 Vaclav Slavik
+ *  Copyright (C) 2009-2016 Vaclav Slavik
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a
  *  copy of this software and associated documentation files (the "Software"),
@@ -52,6 +52,11 @@ public:
     Logs error to, currently, debug output.
  */
 void LogError(const char *msg);
+
+inline void LogError(const std::string& msg)
+{
+    LogError(msg.c_str());
+}
 
 
 /**

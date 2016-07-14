@@ -1,7 +1,7 @@
 /*
- *  This file is part of WinSparkle (http://winsparkle.org)
+ *  This file is part of WinSparkle (https://winsparkle.org)
  *
- *  Copyright (C) 2009-2015 Vaclav Slavik
+ *  Copyright (C) 2009-2016 Vaclav Slavik
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a
  *  copy of this software and associated documentation files (the "Software"),
@@ -157,6 +157,7 @@ WIN_SPARKLE_API void __cdecl win_sparkle_set_appcast_url(const char *url)
 {
     try
     {
+        CheckForInsecureURL(url, "appcast feed");
         Settings::SetAppcastURL(url);
     }
     CATCH_ALL_EXCEPTIONS

@@ -1,7 +1,7 @@
 /*
- *  This file is part of WinSparkle (http://winsparkle.org)
+ *  This file is part of WinSparkle (https://winsparkle.org)
  *
- *  Copyright (C) 2009-2015 Vaclav Slavik
+ *  Copyright (C) 2009-2016 Vaclav Slavik
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a
  *  copy of this software and associated documentation files (the "Software"),
@@ -26,6 +26,8 @@
 #ifndef _utils_h_
 #define _utils_h_
 
+#include "error.h"
+
 #include <string>
 #include <string.h>
 
@@ -33,17 +35,21 @@ namespace winsparkle
 {
 
 /// Helper class for RIIA handling of allocated buffers
+template<typename T>
 struct DataBuffer
 {
     DataBuffer(size_t size)
     {
-        data = new unsigned char[size];
-        memset(data, 0, size);
+        data = new T[size];
+        memset(data, 0, size * sizeof(T));
     }
 
     ~DataBuffer() { delete[] data; }
 
-    unsigned char *data;
+    operator T*() { return data; }
+    operator const T*() const { return data; }
+
+    T *data;
 };
 
 
@@ -104,6 +110,20 @@ inline T* LoadDynamicFunc(const char *func, const char *dll)
 
 #define LOAD_DYNAMIC_FUNC(func, dll) \
     LoadDynamicFunc<decltype(func)>(#func, #dll)
+
+
+// Check for insecure URLs
+inline bool CheckForInsecureURL(const std::string& url, const std::string& purpose)
+{
+    if (url.compare(0, 8, "https://") != 0)
+    {
+        LogError("----------------------------");
+        LogError("*** USING INSECURE URL: " + purpose + " from " + url + " ***");
+        LogError("----------------------------");
+        return false;
+    }
+    return true;
+}
 
 } // namespace winsparkle
 

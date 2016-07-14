@@ -1,7 +1,7 @@
 /*
- *  This file is part of WinSparkle (http://winsparkle.org)
+ *  This file is part of WinSparkle (https://winsparkle.org)
  *
- *  Copyright (C) 2009-2015 Vaclav Slavik
+ *  Copyright (C) 2009-2016 Vaclav Slavik
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a
  *  copy of this software and associated documentation files (the "Software"),
@@ -106,7 +106,7 @@ std::wstring Settings::DoGetVerInfoField(const wchar_t *field, bool fatal)
     if ( fiSize == 0 )
         throw Win32Exception("Executable doesn't have the required VERSIONINFO resource");
 
-    DataBuffer fi(fiSize);
+    DataBuffer<unsigned char> fi(fiSize);
 
     if ( !GetFileVersionInfo(exeFilename, unusedHandle, fiSize, fi.data) )
         throw Win32Exception();

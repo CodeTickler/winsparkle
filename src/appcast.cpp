@@ -1,7 +1,7 @@
 /*
- *  This file is part of WinSparkle (http://winsparkle.org)
+ *  This file is part of WinSparkle (https://winsparkle.org)
  *
- *  Copyright (C) 2009-2015 Vaclav Slavik
+ *  Copyright (C) 2009-2016 Vaclav Slavik
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a
  *  copy of this software and associated documentation files (the "Software"),
@@ -101,7 +101,7 @@ bool is_windows_version_acceptable(const Appcast &item)
         VER_MINORVERSION, VER_GREATER_EQUAL),
         VER_SERVICEPACKMAJOR, VER_GREATER_EQUAL);
 
-    sscanf(item.MinOSVersion.c_str(), "%d.%d.%d", &osvi.dwMajorVersion,
+    sscanf(item.MinOSVersion.c_str(), "%lu.%lu.%hu", &osvi.dwMajorVersion,
         &osvi.dwMinorVersion, &osvi.wServicePackMajor);
 
     return VerifyVersionInfoW(&osvi, VER_MAJORVERSION | VER_MINORVERSION |

@@ -1,4 +1,31 @@
 
+Version 0.5.2
+-------------
+
+- Includes security fixes for Expat XML parser.
+
+
+Version 0.5.1
+-------------
+
+- Includes fix for the CVE-2016-0718 vulnerability in Expat XML parser.
+- Added Pascal bindings.
+- Fixes for RTL languages, added Arabic and Hebrew translations.
+
+
+Version 0.5
+-----------
+
+- Added translations support (32 languages are included at the moment).
+- HiDPI support.
+- Updated Expat XML parser to 2.1.1 (security fixes, CVE-2015-1283).
+- Support for minimumSystemVersion and for specifying 32/64 versions.
+- Added win_sparkle_check_update_with_ui_and_install() for forcefully
+  installing available updates.
+- Added more callbacks for various events during updating.
+- Misc cosmetic fixes.
+
+
 Version 0.4
 -----------
 

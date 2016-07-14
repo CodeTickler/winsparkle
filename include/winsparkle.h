@@ -1,7 +1,7 @@
 /*
- *  This file is part of WinSparkle (http://winsparkle.org)
+ *  This file is part of WinSparkle (https://winsparkle.org)
  *
- *  Copyright (C) 2009-2015 Vaclav Slavik
+ *  Copyright (C) 2009-2016 Vaclav Slavik
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a
  *  copy of this software and associated documentation files (the "Software"),
@@ -149,6 +149,13 @@ WIN_SPARKLE_API void __cdecl win_sparkle_set_langid(unsigned short lang);
     Windows resource named "FeedURL" of type "APPCAST".
 
     @param url  URL of the appcast.
+
+    @note Always use HTTPS feeds, do not use unencrypted HTTP! This is
+          necessary to prevent both leaking user information and preventing
+          various MITM attacks.
+
+    @note See https://github.com/vslavik/winsparkle/wiki/Appcast-Feeds for
+          more information about appcast feeds.
  */
 WIN_SPARKLE_API void __cdecl win_sparkle_set_appcast_url(const char *url);
 
